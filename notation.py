@@ -1,11 +1,18 @@
 
-def notation(number, base, upper=False):
-    digits = '0123456789abcdefghijklmnopqrstuvwxyz'
-    if base > len(digits): return None
-    result = ''
-    while number > 0:
-        result = digits[number % base] + result
-        number //= base
-    return result.upper() if upper else result
+def convertation(number, base): #функция перевода, аргументы -  число для перевода и система счисления в которую переводим
+    digits = '0123456789ABCDEF' #т.к максимум в какую систему будем переводить 16, то и символов, которые эти систем задают 16.
+    if number < base: #если число меньше переводимой системы, то оно в этой системе будет равно индексу в списке перевода
+        return digits[number]
+    else:               #если же число больше переводимой системы, то рекурсией задаем функцию, где аргументы это
+                        #деленное целочисленно изначальное число на систему счисления, а второй аргумент так и остается.
+                        #+ это остаток от деления, переведенный в систему счисления
+        return convertation(number // base,base) + digits[number % base]
+    
+def main(): #основная функция, задаем число и систему счисления, вывод результата
+    number = int(input('Введите число:'))
+    base = int(input('В какую систему счисления перевести?:'))
+    result = convertation(number, base)
+    print(result)
 
-print(notation(12348, 4))
+if __name__ == '__main__': #Выполнится, если файл запущен как самостоятельный
+    main()
