@@ -1,0 +1,11 @@
+
+def notation(number, base, upper=False):
+    digits = '0123456789abcdefghijklmnopqrstuvwxyz'
+    if base > len(digits): return None
+    result = ''
+    while number > 0:
+        result = digits[number % base] + result
+        number //= base
+    return result.upper() if upper else result
+
+print(notation(12348, 4))
